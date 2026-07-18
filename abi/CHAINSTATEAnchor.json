@@ -1,0 +1,1886 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_cardiacExtensions",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "bps",
+        "type": "uint16"
+      }
+    ],
+    "name": "ConfidenceOutOfRange",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "DuplicateReceipt",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "runIdHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "DuplicateSeedRun",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EmptyQhash",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "IsPaused",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoDepositsAccepted",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAgiWallet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotPaused",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotPendingOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "subspace",
+        "type": "uint8"
+      }
+    ],
+    "name": "SubspaceOutOfRange",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "target",
+        "type": "uint8"
+      }
+    ],
+    "name": "TargetOutOfRange",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "verdict",
+        "type": "uint8"
+      }
+    ],
+    "name": "VerdictOutOfRange",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previous",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "current",
+        "type": "address"
+      }
+    ],
+    "name": "AgiWalletSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previous",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "current",
+        "type": "address"
+      }
+    ],
+    "name": "CardiacExtensionsSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "featureHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "expressionHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "sampleN",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "residualPpm",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "EmlExpressionAnchored",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stateIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "GenomicIntegrityToggled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "rulesetHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bool",
+        "name": "genomicIntegrityActive",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "activeCount",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "disabledCount",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "GuardrailStateAnchored",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "workerVersionHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "contractsHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "endpointsHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "allowlistHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "deonticHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "IdentityRefreshed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferInitiated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "verdict",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "semanticHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "ReceiptAnchored",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes8",
+        "name": "truthLattice",
+        "type": "bytes8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "modalPacked",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "gasCostTimePacked",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "identityHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ReceiptAnchoredDetails",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "requesterRootTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "ReceiptRequesterSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "categoryHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "markerHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "RefusalAnchored",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "runIdHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "seedCount",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "okCount",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "errorCount",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "resultsHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "name": "SeedRunAnchored",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "inputs": [],
+    "name": "CHAINSTATE_ECOSYSTEM",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "CHAIN_ID_EXPECTED",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "CONTRACT_VERSION",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "acceptOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "agiWallet",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "expressionHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "featureHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "sampleN",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "residualPpm",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "fittedAt",
+        "type": "uint64"
+      }
+    ],
+    "name": "anchorEmlExpression",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "rulesetHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoriesActiveHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoriesDisabledHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bool",
+        "name": "genomicIntegrityActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint16",
+        "name": "activeCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "disabledCount",
+        "type": "uint16"
+      }
+    ],
+    "name": "anchorGuardrailState",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "workerVersionHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "contractsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "endpointsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "allowlistHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "deonticHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "anchorIdentityRefresh",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "qHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "semanticHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "identityHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes8",
+            "name": "truthLattice",
+            "type": "bytes8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "modalPacked",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gasCostTimePacked",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "requesterRootTokenId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct CHAINSTATEAnchor.ReceiptInput",
+        "name": "r",
+        "type": "tuple"
+      }
+    ],
+    "name": "anchorReceipt",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoryHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "markerHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "refusedAt",
+        "type": "uint64"
+      }
+    ],
+    "name": "anchorRefusal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "runIdHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "resultsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint16",
+        "name": "seedCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "okCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "errorCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint64",
+        "name": "ranAt",
+        "type": "uint64"
+      }
+    ],
+    "name": "anchorSeedRun",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cardiacExtensions",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "emlExpressionCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "emlExpressions",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "expressionHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "featureHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "sampleN",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "residualPpm",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "fittedAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "anchoredAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "genomicIntegrityStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stateIndex",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "observedAt",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "guardrailStateCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "guardrailStates",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "rulesetHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoriesActiveHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoriesDisabledHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bool",
+        "name": "genomicIntegrityActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint16",
+        "name": "activeCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "disabledCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint64",
+        "name": "observedAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "healthSnapshot",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "receiptCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "identityRefreshCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "guardrailStateCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "seedRunCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "emlExpressionCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "refusalCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "genomicIntegrityActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "latestReceipt",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "writer",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "cardiacExtensions",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "isPaused",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct CHAINSTATEAnchor.HealthSnapshot",
+        "name": "s",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "identityRefreshCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "identityRefreshes",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "workerVersionHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "contractsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "endpointsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "allowlistHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "deonticHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "refreshedAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "latestIdentity",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "workerVersionHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "contractsHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "endpointsHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "allowlistHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "deonticHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "refreshedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "address",
+            "name": "writer",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct CHAINSTATEAnchor.IdentityRefresh",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "latestReceiptQhash",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "gasUsedMicro",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "substrateCostUsdcMicro",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "receivedAt",
+        "type": "uint64"
+      }
+    ],
+    "name": "packGasCostTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "verdict",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dominantSubspace",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "substrateTarget",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint16",
+        "name": "confidenceBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "roundsRun",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "participatingNodes",
+        "type": "uint16"
+      }
+    ],
+    "name": "packModal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "receiptCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "receiptQhashes",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "receipts",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "qHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "semanticHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "identityHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes8",
+            "name": "truthLattice",
+            "type": "bytes8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "verdict",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "dominantSubspace",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "substrateTarget",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint16",
+            "name": "confidenceBps",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "roundsRun",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "participatingNodes",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint64",
+            "name": "gasUsedMicro",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "substrateCostUsdcMicro",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "receivedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "anchoredAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "address",
+            "name": "writer",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct CHAINSTATEAnchor.Receipt",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "receiptsPage",
+    "outputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "",
+        "type": "bytes32[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "refusalCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "categoryHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "refusalCountByCategory",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "refusals",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "qHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "categoryHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "markerHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "refusedAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "refusalsByCategory",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "categoryHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "refusalsPageByCategory",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "requesterByQhash",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "rescueEth",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "seedRunCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "seedRunIds",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "seedRuns",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "runIdHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "resultsHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint16",
+        "name": "seedCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "okCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "errorCount",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint64",
+        "name": "ranAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "anchoredAt",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "writer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "seedRunsPage",
+    "outputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "",
+        "type": "bytes32[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      }
+    ],
+    "name": "setAgiWallet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "ext",
+        "type": "address"
+      }
+    ],
+    "name": "setCardiacExtensions",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "p",
+        "type": "uint256"
+      }
+    ],
+    "name": "unpackGasCostTime",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "gasUsedMicro",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "substrateCostUsdcMicro",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "receivedAt",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "p",
+        "type": "uint256"
+      }
+    ],
+    "name": "unpackModal",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "verdict",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "dominantSubspace",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "substrateTarget",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint16",
+        "name": "confidenceBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "roundsRun",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "participatingNodes",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
+  }
+]
