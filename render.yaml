@@ -1,0 +1,54 @@
+# =============================================================================
+# CHAINSTATE Anchor · Render Blueprint
+# -----------------------------------------------------------------------------
+# Push this to your GitHub repo alongside the code. Render → New +
+# → Blueprint → connect the repo → Render reads this file and provisions
+# the service automatically. Set the four required env vars in the
+# dashboard after the first deploy fails to start (that's expected — the
+# service can't run without the AGI private key etc).
+# =============================================================================
+
+services:
+  - type: web
+    name: chainstate-anchor
+    runtime: python
+    plan: starter                    # $7/mo · sufficient for typical volume
+    region: frankfurt                # closest to Kristiansand
+    branch: main
+    autoDeploy: true
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT --log-level info"
+    healthCheckPath: /health
+
+    envVars:
+      # ── Required · set as Secret in the Render dashboard ──────────────
+      - key: AGI_PRIVATE_KEY
+        sync: false                  # marks as secret; UI-only
+      - key: ANCHOR_QUEUE_TOKEN
+        sync: false
+
+      # ── Required · plain vars ────────────────────────────────────────
+      - key: ANCHOR_CONTRACT_ADDR
+        value: "0x12441662740836e9c72a4b758fe1c60c17ddd2d8"
+      - key: CARDIAC_CONTRACT_ADDR
+        value: "0x5438854ead35dc6c873414f222725732f862dabe"
+
+      # ── Optional · sensible defaults ─────────────────────────────────
+      - key: BASE_RPC_URL
+        value: "https://mainnet.base.org"
+      - key: CHAIN_ID
+        value: "8453"
+      - key: MAX_RETRIES
+        value: "3"
+      - key: RETRY_BACKOFF_SECONDS
+        value: "2.0"
+      - key: GAS_PRICE_MULTIPLIER
+        value: "1.1"
+      - key: TX_WAIT_TIMEOUT_SECONDS
+        value: "30"
+      - key: NONCE_REFRESH_INTERVAL_SECONDS
+        value: "300"
+      - key: LOG_LEVEL
+        value: "INFO"
+      - key: PYTHON_VERSION
+        value: "3.12.7"
